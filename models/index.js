@@ -3,12 +3,19 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const post = require("./post.model");
 
-const POSTGRES_URL =
-  process.env.DATABASE_URL || "postgres://localhost:5432/postgres";
+const POSTGRES_URL = process.env.DATABASE_URL;
 
 // const sequelizeOption = {};
+const sequelizeOption = {
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+};
 
-let sequelize = new Sequelize(POSTGRES_URL);
+let sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);
 
 module.exports = {
   db: sequelize,
