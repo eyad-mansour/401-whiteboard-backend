@@ -8,7 +8,7 @@ const POSTGRES_URL =
 
 // const sequelizeOption = {};
 const sequelizeOption = {
-  dialecateOption: {
+  dialectOptions: {
     ssl: {
       require: true,
       rejectUnauthorized: false,
