@@ -4,12 +4,14 @@ const cors = require("cors");
 const app = express();
 
 const postRouter = require("./routs/post.route");
+const commentRouter = require("./routs/comment.route");
 const errorHandler = require("./error-handlers/500");
 const notFoundHandler = require("./error-handlers/404");
 
 app.use(cors());
 app.use(express.json());
 app.use(postRouter);
+app.use(commentRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send("hello eyad");
