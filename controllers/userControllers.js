@@ -23,13 +23,13 @@ const signup = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const basicHeader = req.headers.authoraization.split(" ");
+  const basicHeader = req.headers.authorization.split(" ");
   //   console.log(basicHeader);
   const encodedValue = basicHeader.pop();
   //   console.log(encodedValue);
   const decodedValue = base64.decode(encodedValue);
   //   console.log(decodedValue);
-  const [email, password] = decodedvalue.split(":");
+  const [email, password] = decodedValue.split(":");
 
   const user = await User.findOne({
     where: {
