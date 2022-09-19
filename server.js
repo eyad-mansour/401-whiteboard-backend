@@ -7,11 +7,13 @@ const postRouter = require("./routs/post.route");
 const commentRouter = require("./routs/comment.route");
 const errorHandler = require("./error-handlers/500");
 const notFoundHandler = require("./error-handlers/404");
+const userRouter = require("./routs/user.route");
 
 app.use(cors());
 app.use(express.json());
 app.use(postRouter);
 app.use(commentRouter);
+app.use(userRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send("hello eyad");
