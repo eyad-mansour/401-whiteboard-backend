@@ -49,7 +49,7 @@ async function updatePost(req, res) {
 
 async function getPostComment(req, res) {
   const postComment = await Post.readWithComment(commentModel);
-  res.status(200).json({ postComment });
+  res.status(200).json(postComment);
 }
 
 module.exports = router;

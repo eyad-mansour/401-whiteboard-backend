@@ -39,7 +39,7 @@ db.sequelize = sequelize;
 db.users = require("./user.model")(sequelize, DataTypes);
 // const users = require("../models/user.model");
 console.log(db.users + "users from index");
-const { database } = require("pg/lib/defaults");
+// const { database } = require("pg/lib/defaults");  +++#@#$@#@#@$!#%@!$#@$!!@#
 // relations
 postModel.hasMany(commentModel, {
   foreignkey: "commentID",
