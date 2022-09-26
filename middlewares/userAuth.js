@@ -12,7 +12,7 @@ const saveUser = async (req, res, next) => {
     });
 
     if (username) {
-      return res.status(409).send("Username already taken");
+      return res.status(409).send("User name already taken");
     }
 
     // Serch for the email in the database
@@ -28,10 +28,8 @@ const saveUser = async (req, res, next) => {
 
     next();
   } catch (error) {
-    console.log(`this error is from auth user ${error}`);
+    console.log(`this error is from auth ${error}`);
   }
 };
 
-module.exports = {
-  saveUser,
-};
+module.exports = { saveUser };

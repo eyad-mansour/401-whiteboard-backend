@@ -1,7 +1,7 @@
-"use strict";
-const bcrypt = require("bcrypt");
-const base64 = require("base-64");
-const User = require("../models").users;
+'use strict';
+const bcrypt = require('bcrypt');
+const base64 = require('base-64');
+const User = require('../models').users;
 
 const signup = async (req, res) => {
   try {
@@ -23,13 +23,16 @@ const signup = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const basicHeader = req.headers.authorization.split(" ");
-  //   console.log(basicHeader);
-  const encodedValue = basicHeader.pop();
-  //   console.log(encodedValue);
-  const decodedValue = base64.decode(encodedValue);
-  //   console.log(decodedValue);
-  const [email, password] = decodedValue.split(":");
+  // console.log(req.headers.authoraization);
+  // if (!req.headers.authoraization) return res.status(401).send("Bad Request");
+  // console.log(req.headers);
+  const basicHeader = req.headers.authorization.split(' ');
+  const encodedHeader = basicHeader.pop();
+  console.log(encodedHeader);
+  // console.log(encodedValue)
+  const decodedValue = base64.decode(encodedHeader);
+  console.log(decodedValue);
+  const [email, password] = decodedValue.split(':');
 
   const user = await User.findOne({
     where: {
@@ -41,10 +44,10 @@ const login = async (req, res) => {
     if (isSame) {
       res.status(200).json(user);
     } else {
-      return res.status(401).send("you are not authorized");
+      return res.status(401).send('you are not authorized');
     }
   } else {
-    return res.status(401).send("you are not authorized");
+    return res.status(401).send('you are not authorized');
   }
 };
 

@@ -1,23 +1,23 @@
-"use strict";
+'use strict';
 
-const { Sequelize, DataTypes } = require("sequelize");
-const post = require("./post.model");
-const Comment = require("./comment.model");
-const collection = require("../collection/user-comment-routes");
+const { Sequelize, DataTypes } = require('sequelize');
+const post = require('./post.model');
+const Comment = require('./comment.model');
+const collection = require('../collection/user-comment-routes');
 
 const POSTGRES_URL =
-  process.env.DATABASE_URL || "postgresql://localhost:5432/postgres";
+  process.env.DATABASE_URL || 'postgresql://localhost:5432/postgres';
 
 // const users = require("./user.model");
 
 // const sequelizeOption = {};
 const sequelizeOption = {
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
+  // dialectOptions: {
+  //   ssl: {
+  //     require: true,
+  //     rejectUnauthorized: false,
+  //   },
+  // },
 };
 
 const sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);
@@ -28,7 +28,7 @@ const commentModel = Comment(sequelize, DataTypes);
 sequelize
   .authenticate()
   .then(() => {
-    console.log("database connected to postgres");
+    console.log('database connected to postgres');
   })
   .catch((err) => {
     console.log(err);
@@ -36,16 +36,16 @@ sequelize
 
 const db = {};
 db.sequelize = sequelize;
-db.users = require("./user.model")(sequelize, DataTypes);
+db.users = require('./user.model')(sequelize, DataTypes);
 // const users = require("../models/user.model");
-console.log(db.users + "users from index");
+console.log(db.users + 'users from index');
 // const { database } = require("pg/lib/defaults");  +++#@#$@#@#@$!#%@!$#@$!!@#
 // relations
 postModel.hasMany(commentModel, {
-  foreignkey: "commentID",
-  sourceKey: "id",
+  foreignkey: 'commentID',
+  sourceKey: 'id',
 }); // sourcekey is the primery key
-commentModel.belongsTo(postModel, { foreignkey: "commentID", targetKey: "id" });
+commentModel.belongsTo(postModel, { foreignkey: 'commentID', targetKey: 'id' });
 
 const postcollection = new collection(postModel);
 const commentCollection = new collection(commentModel);
