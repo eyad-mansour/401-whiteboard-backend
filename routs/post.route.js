@@ -1,17 +1,18 @@
-"use strict";
+'use strict';
 
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const bearerAuth = require('../middlewares/bearerAuth');
 
-const { Post, commentModel } = require("../models/index");
+const { Post, commentModel } = require('../models/index');
 
 // routes
-router.get("/post", getPost);
-router.post("/post", createPost);
-router.get("/post/:id", getOnePost);
-router.get("/posts", getPostComment);
-router.delete("/post/:id", deletePost);
-router.put("/post/:id", updatePost);
+router.get('/post', getPost);
+router.post('/post', createPost);
+router.get('/post/:id', getOnePost);
+router.get('/posts', bearerAuth, getPostComment);
+router.delete('/post/:id', deletePost);
+router.put('/post/:id', updatePost);
 
 async function getPost(req, res) {
   let posts = await Post.read();
@@ -23,7 +24,9 @@ async function getPost(req, res) {
 async function createPost(req, res) {
   // console.log(req.body);
   let newPost = req.body;
+  console.log(newPost);
   let post = await Post.create(newPost);
+
   res.status(201).json(post);
 }
 

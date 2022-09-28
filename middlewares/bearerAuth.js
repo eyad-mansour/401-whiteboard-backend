@@ -4,11 +4,11 @@ const { users } = require('../models');
 
 module.exports = async (req, res, next) => {
   console.log(`from inside the middileware`);
-  //   console.log(req.headers.authorization);
-  if (!req.headers.authorization) {
+  //   console.log(req.headers.authoraization);
+  if (!req.headers.authoraization) {
     return next('you are not authorized ????????????????????????????? ');
   }
-  const token = req.headers.authorization.split(' ').pop();
+  const token = req.headers.authoraization.split(' ').pop();
 
   try {
     const validUser = users.authenticateToken(token);

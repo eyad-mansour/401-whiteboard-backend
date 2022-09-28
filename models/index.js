@@ -12,12 +12,12 @@ const POSTGRES_URL =
 
 // const sequelizeOption = {};
 const sequelizeOption = {
-  // dialectOptions: {
-  //   ssl: {
-  //     require: true,
-  //     rejectUnauthorized: false,
-  //   },
-  // },
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 };
 
 const sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);

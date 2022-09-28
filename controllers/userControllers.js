@@ -25,8 +25,9 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   // console.log(req.headers.authoraization);
   // if (!req.headers.authoraization) return res.status(401).send("Bad Request");
-  // console.log(req.headers);
+  console.log(req.headers);
   const basicHeader = req.headers.authorization.split(' ');
+  console.log(basicHeader);
   const encodedHeader = basicHeader.pop();
   console.log(encodedHeader);
   // console.log(encodedValue)
