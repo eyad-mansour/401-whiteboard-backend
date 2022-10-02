@@ -15,7 +15,7 @@ router.delete('/post/:id', deletePost);
 router.put('/post/:id', updatePost);
 
 async function getPost(req, res) {
-  let posts = await Post.findAll({ incloud: users });
+  let posts = await Post.read();
   res.status(200).json({
     posts,
   });
