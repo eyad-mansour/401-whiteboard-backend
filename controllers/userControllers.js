@@ -5,11 +5,12 @@ const User = require('../models').users;
 
 const signup = async (req, res) => {
   try {
-    const { userName, email, password } = req.body;
+    const { userName, email, password, role } = req.body;
     const data = {
       userName,
       email,
       password: await bcrypt.hash(password, 10),
+      role,
     };
 
     const user = await User.create(data);

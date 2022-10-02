@@ -6,8 +6,8 @@ const Post = (sequelize, DataTypes) =>
       type: DataTypes.STRING,
       allowNull: false,
     },
-    postStatus: {
-      type: DataTypes.STRING,
+    postID: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   });

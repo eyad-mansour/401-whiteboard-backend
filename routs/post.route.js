@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 const bearerAuth = require('../middlewares/bearerAuth');
 
-const { Post, commentModel } = require('../models/index');
+const { Post, users, commentModel } = require('../models/index');
 
 // routes
 router.get('/post', getPost);
@@ -15,7 +15,7 @@ router.delete('/post/:id', deletePost);
 router.put('/post/:id', updatePost);
 
 async function getPost(req, res) {
-  let posts = await Post.read();
+  let posts = await Post.findAll({ incloud: users });
   res.status(200).json({
     posts,
   });
