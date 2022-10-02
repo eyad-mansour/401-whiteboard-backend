@@ -1,7 +1,8 @@
-"use strict";
+'use strict';
+const jwt = require('jsonwebtoken');
 
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define("user", {
+  const User = sequelize.define('user', {
     userName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -16,6 +17,46 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    token: {
+      type: DataTypes.VIRTUAL,
+      get: function () {
+        return jwt.sign(
+          {
+            userName: this.userName,
+          },
+          process.env.JWT_SECRET
+        );
+      },
+      set(tokenObj) {
+        const token = jwt.sign(tokenObj, process.env.JWT_SECRET);
+        return token;
+      },
+    },
+    role: {
+      type: DataTypes.ENUM('admin', 'user'),
+      allowNull: false,
+      defaultValue: 'user',
+    },
+    capabilities: {
+      type: DataTypes.VIRTUAL,
+      get: function () {
+        const acl = {
+          admin: ['read', 'create', 'delete', 'update'],
+          user: ['read', 'create'],
+        };
+        return acl[this.role];
+      },
+    },
   });
+  User.authenticateToken = (token) => {
+    // console.log(token);
+    return jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) {
+        return err;
+      } else {
+        return decoded;
+      }
+    });
+  };
   return User;
 };

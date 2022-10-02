@@ -1,12 +1,13 @@
-"use strict";
+'use strict';
 
-const { Sequelize, DataTypes } = require("sequelize");
-const post = require("./post.model");
-const Comment = require("./comment.model");
-const collection = require("../collection/user-comment-routes");
+const { Sequelize, DataTypes } = require('sequelize');
+const User = require('./user.model');
+const post = require('./post.model');
+const Comment = require('./comment.model');
+const collection = require('../collection/user-comment-routes');
 
 const POSTGRES_URL =
-  process.env.DATABASE_URL || "postgresql://localhost:5432/postgres";
+  process.env.DATABASE_URL || 'postgresql://localhost:5432/postgres';
 
 // const users = require("./user.model");
 
@@ -21,14 +22,16 @@ const sequelizeOption = {
 };
 
 const sequelize = new Sequelize(POSTGRES_URL, sequelizeOption);
+const userModel = User(sequelize, DataTypes);
 const postModel = post(sequelize, DataTypes);
 const commentModel = Comment(sequelize, DataTypes);
+
 // const userModel = users(sequelize, DataTypes);
 
 sequelize
   .authenticate()
   .then(() => {
-    console.log("database connected to postgres");
+    console.log('database connected to postgres');
   })
   .catch((err) => {
     console.log(err);
@@ -36,17 +39,20 @@ sequelize
 
 const db = {};
 db.sequelize = sequelize;
-db.users = require("./user.model")(sequelize, DataTypes);
+db.users = require('./user.model')(sequelize, DataTypes);
 // const users = require("../models/user.model");
-console.log(db.users + "users from index");
+// console.log(db.users + 'users from index');
 // const { database } = require("pg/lib/defaults");  +++#@#$@#@#@$!#%@!$#@$!!@#
 // relations
-postModel.hasMany(commentModel, {
-  foreignkey: "commentID",
-  sourceKey: "id",
-}); // sourcekey is the primery key
-commentModel.belongsTo(postModel, { foreignkey: "commentID", targetKey: "id" });
+postModel.hasMany(commentModel, { foreignkey: 'commentID', sourceKey: 'id' }); // sourcekey is the primery key
+commentModel.belongsTo(postModel, { foreignkey: 'commentID', sourceKey: 'id' });
+// realtion for the user with the post and comment
+userModel.hasMany(postModel, { foreignkey: 'postID', sourceKey: 'id' });
+postModel.belongsTo(userModel, { foreignkey: 'postID', sourceKey: 'id' });
+userModel.hasMany(commentModel, { foreignkey: 'commentID', sourceKey: 'id' });
+commentModel.belongsTo(userModel, { foreignkey: 'commentID', sourceKey: 'id' });
 
+const userCollection = new collection(userModel);
 const postcollection = new collection(postModel);
 const commentCollection = new collection(commentModel);
 
@@ -59,4 +65,6 @@ module.exports = {
   users: db.users,
   // users: db.users,
   // Users: db.users(sequelize, DataTypes),
+  userModel,
+  userCollection,
 };
