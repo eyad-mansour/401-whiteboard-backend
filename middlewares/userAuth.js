@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-const User = require("../models").users;
-console.log("this is the users from user auther: " + User);
+const User = require('../models').users;
+console.log('this is the users from user auther: ' + User);
 const saveUser = async (req, res, next) => {
   try {
     // Search for the username in the Database
@@ -12,7 +12,7 @@ const saveUser = async (req, res, next) => {
     });
 
     if (username) {
-      return res.status(409).send("User name already taken");
+      return res.status(409).send('User name already taken');
     }
 
     // Serch for the email in the database
@@ -23,7 +23,7 @@ const saveUser = async (req, res, next) => {
     });
 
     if (email) {
-      return res.status(409).send("Email already taken");
+      return res.status(409).send('Email already taken');
     }
 
     next();

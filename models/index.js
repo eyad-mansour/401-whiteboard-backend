@@ -44,13 +44,13 @@ db.users = require('./user.model')(sequelize, DataTypes);
 // console.log(db.users + 'users from index');
 // const { database } = require("pg/lib/defaults");  +++#@#$@#@#@$!#%@!$#@$!!@#
 // relations
-postModel.hasMany(commentModel, { foreignkey: 'commentID', sourceKey: 'id' }); // sourcekey is the primery key
-commentModel.belongsTo(postModel, { foreignkey: 'commentID', sourceKey: 'id' });
+postModel.hasMany(commentModel, { foreignKey: 'commentID', sourceKey: 'id' }); // sourcekey is the primery key
+commentModel.belongsTo(postModel, { foreignKey: 'commentID', targetKey: 'id' });
 // realtion for the user with the post and comment
-userModel.hasMany(postModel, { foreignkey: 'postID', sourceKey: 'id' });
-postModel.belongsTo(userModel, { foreignkey: 'postID', sourceKey: 'id' });
-userModel.hasMany(commentModel, { foreignkey: 'commentID', sourceKey: 'id' });
-commentModel.belongsTo(userModel, { foreignkey: 'commentID', sourceKey: 'id' });
+userModel.hasMany(postModel, { foreignKey: 'postID', sourceKey: 'id' });
+postModel.belongsTo(userModel, { foreignKey: 'postID', targetKey: 'id' });
+userModel.hasMany(commentModel, { foreignKey: 'commentID', sourceKey: 'id' });
+commentModel.belongsTo(userModel, { foreignKey: 'commentID', targetKey: 'id' });
 
 const userCollection = new collection(userModel);
 const postcollection = new collection(postModel);
