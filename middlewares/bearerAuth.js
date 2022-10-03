@@ -3,8 +3,7 @@
 const { users } = require('../models');
 
 module.exports = async (req, res, next) => {
-  console.log(`from inside the middileware`);
-  //   console.log(req.headers.authoraization);
+  console.log(req.headers.authoraization);
   if (!req.headers.authoraization) {
     return next('you are not authorized ????????????????????????????? ');
   }

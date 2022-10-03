@@ -10,7 +10,7 @@ const { Post, users, commentModel } = require('../models/index');
 router.get('/post', getPost);
 router.post('/post', createPost);
 router.get('/post/:id', getOnePost);
-router.get('/posts', bearerAuth, getPostComment);
+router.get('/posts', getPostComment);
 router.delete('/post/:id', deletePost);
 router.put('/post/:id', updatePost);
 
@@ -22,7 +22,8 @@ async function getPost(req, res) {
 }
 
 async function createPost(req, res) {
-  // console.log(req.body);
+  console.log(req.body, '====================================');
+
   let newPost = req.body;
   console.log(newPost);
   let post = await Post.create(newPost);

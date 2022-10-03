@@ -1,17 +1,17 @@
-"use strict";
+'use strict';
 
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const { Comment } = require("../models/index");
+const { Comment } = require('../models/index');
 // const { Post } = require("../models/index");
 
 // routes
-router.get("/comment", getComment);
-router.post("/comment", createComment);
-router.get("/comment/:id", getOneComment);
-router.delete("/comment/:id", deleteComment);
-router.put("/comment/:id", updateComment);
+router.get('/comment', getComment);
+router.post('/comment', createComment);
+router.get('/comment/:id', getOneComment);
+router.delete('/comment/:id', deleteComment);
+router.put('/comment/:id', updateComment);
 
 async function getComment(req, res) {
   const comment = await Comment.read();
@@ -35,9 +35,7 @@ async function getOneComment(req, res) {
 
 async function deleteComment(req, res) {
   const id = req.params.id;
-  const deletedComment = await Comment.destroy({
-    where: { id: id },
-  });
+  const deletedComment = await Comment.delete(id);
   res.status(204).json(deletedComment);
 }
 

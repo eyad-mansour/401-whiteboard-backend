@@ -45,12 +45,16 @@ db.users = require('./user.model')(sequelize, DataTypes);
 // const { database } = require("pg/lib/defaults");  +++#@#$@#@#@$!#%@!$#@$!!@#
 // relations
 postModel.hasMany(commentModel, { foreignKey: 'commentID', sourceKey: 'id' }); // sourcekey is the primery key
-commentModel.belongsTo(postModel, { foreignKey: 'commentID', targetKey: 'id' });
+
+commentModel.belongsTo(postModel, { foreignKey: 'postID', targetKey: 'id' });
 // realtion for the user with the post and comment
 userModel.hasMany(postModel, { foreignKey: 'postID', sourceKey: 'id' });
-postModel.belongsTo(userModel, { foreignKey: 'postID', targetKey: 'id' });
+
+postModel.belongsTo(userModel, { foreignKey: 'userID', targetKey: 'id' });
+
 userModel.hasMany(commentModel, { foreignKey: 'commentID', sourceKey: 'id' });
-commentModel.belongsTo(userModel, { foreignKey: 'commentID', targetKey: 'id' });
+
+commentModel.belongsTo(userModel, { foreignKey: 'userID', targetKey: 'id' });
 
 const userCollection = new collection(userModel);
 const postcollection = new collection(postModel);
@@ -65,6 +69,6 @@ module.exports = {
   users: db.users,
   // users: db.users,
   // Users: db.users(sequelize, DataTypes),
-  userModel,
+  User: userModel,
   userCollection,
 };

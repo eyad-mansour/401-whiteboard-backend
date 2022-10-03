@@ -1,6 +1,6 @@
 'use strict';
 
-const User = require('../models').users;
+const { User } = require('../models');
 console.log('this is the users from user auther: ' + User);
 const saveUser = async (req, res, next) => {
   try {
