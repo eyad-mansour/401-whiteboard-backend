@@ -1,7 +1,7 @@
 'use strict';
 const bcrypt = require('bcrypt');
 const base64 = require('base-64');
-const User = require('../models').users;
+const { User } = require('../models');
 
 const signup = async (req, res) => {
   try {
@@ -54,7 +54,7 @@ const login = async (req, res) => {
 };
 
 const allUser = async (req, res) => {
-  const users = await User.findAll();
+  const users = await User.findAll({ include: { all: true } });
   res.json(users);
 };
 
