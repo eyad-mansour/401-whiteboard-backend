@@ -23,7 +23,7 @@ const sequelizeOption = {
 
 const sequelize = new Sequelize(
   POSTGRES_URL
-  // , sequelizeOption
+  , sequelizeOption
 );
 const userModel = User(sequelize, DataTypes);
 const postModel = post(sequelize, DataTypes);
