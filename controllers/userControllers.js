@@ -55,6 +55,7 @@ const login = async (req, res) => {
 
 const allUser = async (req, res) => {
   const users = await User.findAll({ include: { all: true } });
+  console.log(req);
   res.json(users);
 };
 

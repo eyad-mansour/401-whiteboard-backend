@@ -1,24 +1,27 @@
 'use strict';
 
-const { users } = require('../models');
+const { users } = require('../models/index');
 
 module.exports = async (req, res, next) => {
-  console.log(req.headers.authoraization);
-  if (!req.headers.authoraization) {
+  // console.log(req.headers.authorization, '');
+  if (!req.headers.authorization) {
     return next('you are not authorized ????????????????????????????? ');
   }
-  const token = req.headers.authoraization.split(' ').pop();
-
+  const token = req.headers.authorization.split(' ').pop();
+  // console.log(token, 'this is the token !@#@#!$%');
   try {
-    const validUser = users.authenticateToken(token);
-
+    const validUser = await users.authenticateToken(token);
+    console.log(validUser);
     const userInfo = await users.findOne({
-      where: { userName: validUser.userName },
+      where: {
+        userName: validUser.userName,
+      },
     });
+    console.log(userInfo, 'this is the user ########3');
     if (userInfo) {
       req.user = userInfo;
       req.token = userInfo.token;
-
+      console.log(req.token);
       next();
     } else {
       next('you are not authinticate ???????????????????');
