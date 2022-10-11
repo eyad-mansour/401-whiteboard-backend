@@ -3,16 +3,17 @@
 const express = require('express');
 const router = express.Router();
 const bearerAuth = require('../middlewares/bearerAuth');
+const ability = require('../middlewares/listControl');
 
 const { Post, users, commentModel } = require('../models/index');
-
+// console.log(bearerAuth);
 // routes
-router.get('/post', getPost);
-router.post('/post', createPost);
-router.get('/post/:id', getOnePost);
-router.get('/posts', getPostComment);
-router.delete('/post/:id', deletePost);
-router.put('/post/:id', updatePost);
+router.get('/post', bearerAuth, ability('read'), getPost);
+router.post('/post', bearerAuth, ability('create'), createPost);
+router.get('/post/:id', bearerAuth, ability('read'), getOnePost);
+router.get('/posts', bearerAuth, ability('read'), getPostComment);
+router.delete('/post/:id', bearerAuth, ability('delete'), deletePost);
+router.put('/post/:id', bearerAuth, ability('update'), updatePost);
 
 async function getPost(req, res) {
   let posts = await Post.read();
