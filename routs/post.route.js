@@ -12,7 +12,7 @@ router.get('/post', bearerAuth, ability('read'), getPost);
 router.post('/post', bearerAuth, ability('create'), createPost);
 router.get('/post/:id', bearerAuth, ability('read'), getOnePost);
 router.get('/posts', bearerAuth, ability('read'), getPostComment);
-router.delete('/post/:id', bearerAuth, ability('delete'), deletePost);
+router.delete('/post/:id/:userID', bearerAuth, ability('delete'), deletePost);
 router.put('/post/:id', bearerAuth, ability('update'), updatePost);
 
 async function getPost(req, res) {
